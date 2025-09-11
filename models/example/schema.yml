@@ -1,6 +1,25 @@
 
 version: 2
 
+sources:
+  - name: sandbox                # logical name (you choose)
+    database: serious-music-469407-f1   # BigQuery Project ID
+    schema: sandbox              # BigQuery Dataset
+    tables:
+      - name: comprehensive_banking_dataset
+        description: Banking dataset from Github user.
+        columns:
+          - name: customer_id
+            description: "Unique identifier for the customer."
+            tests:
+              - not_null
+      - name: dim__cbd__balance
+        description: dimension table of balance from `comprehensive_banking_dataset`.
+      - name: dim__cbd__customer
+        description: dimension table of customer from `comprehensive_banking_dataset`.
+      - name: dim__cbd__loan
+        description: dimension table of loan from `comprehensive_banking_dataset`.
+        
 models:
     - name: my_first_dbt_model
       description: "A starter dbt model"
