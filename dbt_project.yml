@@ -2,7 +2,7 @@
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
-name: 'my_new_project'
+name: 'project_aqua'
 version: '1.0.0'
 config-version: 2
 
@@ -36,7 +36,23 @@ clean-targets:         # directories to be removed by `dbt clean`
 # using the `{{ config(...) }}` macro.
 
 models:
-  my_new_project:
+  project_aqua:
     # Applies to all files under models/example/
     example:
+      +materialized: view
+    src:                                # BRONZE - raw source references (only YAML, no SQL).
+      +schema: bronze
+    stg:                                # SILVER - 1:1 cleaned tables, light transform if needed.
+      +schema: silver
+      +materialized: view
+    int:                                # SILVER - intermediate joins / heavy logic.
+      +schema: silver
       +materialized: table
+    marts:                              # GOLD - business-ready marts, business logic.
+      +schema: gold
+      +materialized: table
+      # +partition_by:
+      #   field: created_at
+      #   data_type: timestamp
+      #   granularity: day
+      # +cluster_by: ["customer_id"]
