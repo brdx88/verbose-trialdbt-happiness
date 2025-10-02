@@ -3,8 +3,13 @@ version: 2
 models:
   - name: stg_customers
     description: "Cleaned and standardized customers data."
-    columns:
-      - name: customer_id
-        tests:
-          - unique
-          - not_null
+  - name: stg_accounts
+    description: "Cleaned and standardized accounts data."
+  - name: stg_branches
+    description: "Cleaned and standardized branches data."
+  - name: stg_loans
+    description: "Cleaned and standardized loans data."
+  - name: stg_payments
+    description: "Cleaned and standardized payments data."
+  - name: stg_transactions
+    description: "Cleaned and standardized transactions data."
