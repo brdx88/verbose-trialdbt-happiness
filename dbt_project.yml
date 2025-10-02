@@ -2,7 +2,7 @@
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
-name: 'project_aqua'
+name: 'banking'
 version: '1.0.0'
 config-version: 2
 
@@ -36,10 +36,9 @@ clean-targets:         # directories to be removed by `dbt clean`
 # using the `{{ config(...) }}` macro.
 
 models:
-  project_aqua:
+  banking:  # or your project name from dbt_project.yml
     # Applies to all files under models/example/
-    example:
-      +materialized: view
+    
     src:                                # BRONZE - raw source references (only YAML, no SQL).
       +schema: bronze
     stg:                                # SILVER - 1:1 cleaned tables, light transform if needed.

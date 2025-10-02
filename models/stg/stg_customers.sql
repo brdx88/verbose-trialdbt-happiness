@@ -1,8 +1,8 @@
 WITH src AS 
 (
     SELECT *
-    FROM {{ source('bronze', 'customers') }}
-    WHERE _PARTITIONDATE = '2025-10-01'
+    FROM {{ source('banking_bronze', 'customers') }}
+    WHERE _PARTITIONDATE = '2025-10-02'
 )
 
 SELECT
