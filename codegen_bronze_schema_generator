@@ -1,0 +1,1 @@
+{{ codegen.generate_source(schema_name='banking_bronze', database_name='serious-music-469407-f1') }}
