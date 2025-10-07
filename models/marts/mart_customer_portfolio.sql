@@ -10,9 +10,9 @@ final as (
         c.full_name,
         c.city,
         c.country,
-        a.total_accounts,
-        a.total_balance,
-        a.avg_balance,
+        COALESCE(a.total_accounts, 0) AS total_accounts,
+        COALESCE(a.total_balance, 0) AS total_balance,
+        COALESCE(a.avg_balance, 0) AS avg_balance,
         case
             when a.total_balance >= 100000000 then 'VIP'
             when a.total_balance >= 10000000 then 'PREMIUM'

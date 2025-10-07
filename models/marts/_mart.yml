@@ -1,0 +1,10 @@
+version: 2
+
+models:
+  - name: mart_customer_portfolio
+    description: "Portfolio of customer. level `customer_id`."
+    columns:
+      - name: customer_id
+        data_tests:
+          - not_null
+          - unique
