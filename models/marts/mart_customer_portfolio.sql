@@ -1,11 +1,17 @@
-with customers as (
-    select * from {{ ref('stg_customers') }}
-),
-accounts_summary as (
-    select * from {{ ref('int_accounts_summary') }}
-),
-final as (
-    select
+WITH CUSTOMERS as 
+(
+    SELECT * FROM {{ ref('stg_customers') }}
+)
+
+, ACCOUNTS_SUMMARY as 
+(
+    SELECT * FROM {{ ref('int_accounts_summary') }}
+)
+
+, FINAL as 
+(
+    SELECT
+        current_date() as position_date,
         c.customer_id,
         c.full_name,
         c.city,
@@ -18,9 +24,9 @@ final as (
             when a.total_balance >= 10000000 then 'PREMIUM'
             else 'REGULAR'
         end as customer_tier
-    from customers c
-    left join accounts_summary a
-        on c.customer_id = a.customer_id
+    FROM customers c
+    LEFT JOIN accounts_summary a
+        ON c.customer_id = a.customer_id
 )
 
-select * from final
+SELECT * FROM FINAL
