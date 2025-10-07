@@ -1,17 +1,21 @@
-with accounts as (
-    select *
-    from {{ ref('stg_accounts') }}
-),
+WITH ACCOUNTS as 
+(
+    SELECT *
+    FROM {{ ref('stg_accounts') }}
+)
 
-agg as (
-    select
+, AGG as 
+(
+    SELECT
+        current_date() as position_date,
         customer_id,
         count(*) as total_accounts,
         sum(balance) as total_balance,
         avg(balance) as avg_balance,
-        max(case when account_status = 'ACTIVE' then 1 else 0 end) as has_active_account
-    from accounts
-    group by customer_id
+        max(CASE WHEN account_status = 'ACTIVE' THEN 1 ELSE 0 END) as has_active_account
+    FROM accounts
+    GROUP BY customer_id
 )
 
-select * from agg
+SELECT * 
+FROM agg
