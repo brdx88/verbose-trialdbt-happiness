@@ -1,3 +1,9 @@
+{{
+    config(
+        cluster_by='loan_id'
+    )
+}}
+
 select
     current_date() as position_date,
     l.loan_id,
