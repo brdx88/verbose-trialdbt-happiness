@@ -50,6 +50,10 @@ models:
       +partition_by:
         field: position_date
         data_type: date
+      # +require_partition_filter: "{{ target.name == 'prod' }}"
+      +require_partition_filter: false
+      # +post-hook:
+      #   - "ALTER TABLE {{ this }} SET OPTIONS (require_partition_filter = true)"
       +cluster_by: ['customer_id']
     marts:                              # GOLD - business-ready marts, business logic.
       +schema: gold
@@ -57,4 +61,22 @@ models:
       +partition_by:
         field: position_date
         data_type: date
+      +require_partition_filter: false
+      # +post-hook:
+      #   - "ALTER TABLE {{ this }} SET OPTIONS (require_partition_filter = true)"
       +cluster_by: ['customer_id']
+
+on-run-end:
+# execute after all builds and tests succeed.
+  # `on-run-end` hooks execute after all builds and tests succeed.
+  # The Jinja loop scans all models in the project, and for each partitioned table, it automatically enforces the partition filter.
+  # This ensures tests run fine first, and only after everything passes, tables become protected.
+  
+- >
+  {% for node in graph.nodes.values() 
+      if node.resource_type == 'model' 
+      and node.config.get('materialized') == 'table' 
+      and node.config.get('partition_by') is not none %}
+      ALTER TABLE {{ node.database }}.{{ node.schema }}.{{ node.alias }}
+      SET OPTIONS (require_partition_filter = true);
+  {% endfor %}
