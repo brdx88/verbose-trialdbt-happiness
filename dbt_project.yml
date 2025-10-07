@@ -1,4 +1,3 @@
-
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
@@ -18,8 +17,6 @@ test-paths: ["tests"]
 seed-paths: ["seeds"]
 macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
-
-target-path: "target"  # directory which will store compiled SQL files
 clean-targets:         # directories to be removed by `dbt clean`
   - "target"
   - "dbt_packages"
@@ -38,7 +35,6 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   banking:  # or your project name from dbt_project.yml
     # Applies to all files under models/example/
-    
     src:                                # BRONZE - raw source references (only YAML, no SQL).
       +schema: bronze
     stg:                                # SILVER - 1:1 cleaned tables, light transform if needed.
@@ -67,12 +63,13 @@ on-run-end:
   # The Jinja loop scans all models in the project, and for each partitioned table, it automatically enforces the partition filter.
   # This ensures tests run fine first, and only after everything passes, tables become protected.
     # `and (node.name.startswith('int_') or node.name.startswith('mart_'))`
-- >
-  {% for node in graph.nodes.values() 
-      if node.resource_type == 'model' 
-      
-      and node.config.get('materialized') == 'table' 
-      and node.config.get('partition_by') is not none %}
-      ALTER TABLE {{ node.database }}.{{ node.schema }}.{{ node.alias }}
-      SET OPTIONS (require_partition_filter = true);
-  {% endfor %}
+  - >-
+    {% for node in graph.nodes.values() 
+        if node.resource_type == 'model' 
+        and node.config.get('materialized') == 'table' 
+        and node.config.get('partition_by') is not none %}
+        ALTER TABLE {{ node.database }}.{{ node.schema }}.{{ node.alias }}
+        SET OPTIONS (require_partition_filter = true);
+    {% endfor %}
+flags:
+  require_generic_test_arguments_property: true

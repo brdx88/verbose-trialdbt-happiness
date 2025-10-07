@@ -8,12 +8,7 @@ models:
         data_tests:
           - not_null
           - unique
-      #     - relationships:
-      #         field: customer_id
-      #         to: ref('stg_customers')
-      # - name: account_id
-      #   data_tests:
-      #     - not_null
-      #     - relationships:
-      #         field: account_id
-      #         to: ref('int_accounts_summary')
+          - relationships:
+              arguments:
+                field: customer_id
+                to: ref('stg_customers')

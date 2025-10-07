@@ -1,6 +1,6 @@
 version: 2
 
-models:     
+models:
   - name: stg_accounts
     description: "Cleaned and standardized accounts data."
     columns:
@@ -27,9 +27,10 @@ models:
       - name: gender
         data_tests:
           - accepted_values:
-              values:
-                - 'MALE'
-                - 'FEMALE'
+              arguments:
+                values:
+                  - 'MALE'
+                  - 'FEMALE'
 
   - name: stg_loans
     description: "Cleaned and standardized loans data."
@@ -38,7 +39,7 @@ models:
         data_tests:
           - unique
           - not_null
-          
+
   - name: stg_payments
     description: "Cleaned and standardized payments data."
     columns:
