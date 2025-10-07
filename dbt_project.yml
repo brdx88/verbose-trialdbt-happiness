@@ -47,11 +47,14 @@ models:
     int:                                # SILVER - intermediate joins / heavy logic.
       +schema: silver
       +materialized: table
+      +partition_by:
+        field: position_date
+        data_type: date
+      +cluster_by: ['customer_id']
     marts:                              # GOLD - business-ready marts, business logic.
       +schema: gold
       +materialized: table
-      # +partition_by:
-      #   field: created_at
-      #   data_type: timestamp
-      #   granularity: day
-      # +cluster_by: ["customer_id"]
+      +partition_by:
+        field: position_date
+        data_type: date
+      +cluster_by: ['customer_id']
