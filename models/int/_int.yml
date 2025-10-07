@@ -17,3 +17,26 @@ models:
               arguments:
                 column_name: "CAST(has_active_account as STRING)"
                 values: ['1','0']
+  
+  - name: int_branches_summary
+    columns:
+      - name: branch_id
+        tests:
+          - unique
+          - not_null
+      - name: branch_name
+        tests:
+          - not_null
+      - name: branch_age_years
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+              max_value: 200
+      - name: branch_size_category
+        tests:
+          - accepted_values:
+              values:
+                - 'SMALL'
+                - 'MEDIUM'
+                - 'LARGE'
