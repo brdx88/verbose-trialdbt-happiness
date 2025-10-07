@@ -6,6 +6,7 @@ WITH CUSTOMERS as
 , ACCOUNTS_SUMMARY as 
 (
     SELECT * FROM {{ ref('int_accounts_summary') }}
+    WHERE position_date = '2025-10-07'
 )
 
 , FINAL as 
