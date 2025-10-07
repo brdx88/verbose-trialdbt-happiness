@@ -40,3 +40,26 @@ models:
                 - 'SMALL'
                 - 'MEDIUM'
                 - 'LARGE'
+  
+  - name: int_loans_summary
+    columns:
+      - name: loan_id
+        tests:
+          - not_null
+          - unique
+      - name: customer_id
+        tests:
+          - not_null
+      # - name: loan_status
+      #   tests:
+      #     - accepted_values:
+      #         values:
+      #           - 'ACTIVE'
+      #           - 'CLOSED'
+      #           - 'DEFAULTED'
+      # - name: is_active_loan
+      #   tests:
+      #     - accepted_values:
+      #         arguments:
+      #           column_name: "CAST(is_active_account as STRING)"
+      #           values: ['1','0']
