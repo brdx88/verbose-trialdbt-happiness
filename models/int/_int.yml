@@ -63,3 +63,9 @@ models:
       #         arguments:
       #           column_name: "CAST(is_active_account as STRING)"
       #           values: ['1','0']
+  - name: int_payments_summary
+    columns:
+      - name: payment_id
+        tests:
+          - not_null
+          - unique
