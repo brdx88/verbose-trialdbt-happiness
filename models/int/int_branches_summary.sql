@@ -4,12 +4,8 @@
     )
 }}
 
-with branches as (
-    select * from {{ ref('stg_branches') }}
-)
-
 select
-    current_date() as position_date,
+    CAST('2025-10-07' AS DATE) as position_date,
     branch_id,
     branch_name,
     city,
@@ -30,4 +26,4 @@ select
 
     concat(city, ', ', province) as region_label
 
-from branches
+from {{ ref('stg_branches') }}

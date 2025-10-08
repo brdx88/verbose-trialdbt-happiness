@@ -7,7 +7,7 @@ WITH ACCOUNTS as
 , AGG as 
 (
     SELECT
-        current_date() as position_date,
+        CAST('2025-10-07' AS DATE) as position_date,
         customer_id,
         count(*) as total_accounts,
         sum(balance) as total_balance,

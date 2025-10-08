@@ -3,7 +3,7 @@
 ) }}
 
 select
-    current_date() as position_date,
+    CAST('2025-10-07' AS DATE) as position_date,
     p.payment_id,
     p.loan_id,
     p.payment_date,
