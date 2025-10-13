@@ -18,3 +18,10 @@ sources:
         description: "Raw banking payments data ingested."
       - name: transactions
         description: "Raw banking transactions data ingested."
+      
+      - name: risk_customers_raw
+        description: "Raw banking customers data ingested."
+      - name: risk_loans_raw
+        description: "Raw banking loans data ingested."
+      - name: risk_payments_raw
+        description: "Raw banking payments data ingested."
