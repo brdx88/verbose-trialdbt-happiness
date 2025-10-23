@@ -12,3 +12,5 @@ models:
               arguments:
                 field: customer_id
                 to: ref('stg_customers')
+
+  - name: mart_ecom_sales_summary
