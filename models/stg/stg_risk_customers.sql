@@ -1,6 +1,6 @@
 WITH customers AS (
     SELECT
-        CAST(region as INTEGER) as region,
+        CAST(region as STRING) as region,
         CAST(age as INTEGER) as age,
         CAST(name as STRING) as name,
         CAST(income as FLOAT64) as income,
