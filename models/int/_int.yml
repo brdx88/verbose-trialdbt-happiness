@@ -82,3 +82,9 @@ models:
         tests:
           - unique
           - not_null
+
+  - name: int_ecom_orders_enriched
+    columns:
+      - name: customer_id
+        data_tests:
+          - not_null
