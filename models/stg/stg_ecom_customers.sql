@@ -10,9 +10,9 @@ renamed as (
 
     select
         DATE(TIMESTAMP_MILLIS(signup_date)) as signup_date,
-        last_name,
+        UPPER(last_name) AS last_name,
         email,
-        first_name,
+        UPPER(first_name) AS first_name,
         customer_id
 
     from source

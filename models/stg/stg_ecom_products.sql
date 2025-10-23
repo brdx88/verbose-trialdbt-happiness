@@ -10,8 +10,8 @@ renamed as (
 
     select
         price,
-        category,
-        product_name,
+        UPPER(category) AS category,
+        UPPER(product_name) AS product_name,
         product_id
 
     from source
