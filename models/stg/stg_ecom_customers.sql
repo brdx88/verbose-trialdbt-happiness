@@ -9,7 +9,7 @@ source as (
 renamed as (
 
     select
-        signup_date,
+        DATE(TIMESTAMP_MILLIS(signup_date)) as signup_date,
         last_name,
         email,
         first_name,
