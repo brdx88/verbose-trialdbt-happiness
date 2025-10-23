@@ -25,3 +25,10 @@ sources:
         description: "Raw banking loans data ingested."
       - name: risk_payments_raw
         description: "Raw banking payments data ingested."
+
+      - name: ecom_customers
+        description: "Ecommerce raw customers data ingested."
+      - name: ecom_orders
+        description: "Ecommerce raw orders data ingested."
+      - name: ecom_products
+        description: "Ecommerce raw products data ingested."
