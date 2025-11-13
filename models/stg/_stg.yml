@@ -69,3 +69,13 @@ models:
       data_tests:
         - unique
         - not_null
+
+  - name: stg_kissaten__sales_trx__receiptno
+    columns:
+    - name: no_tanda_terima
+      data_tests:
+        - not_null
+    - name: no_penjualan
+      data_tests:
+        - not_null
+        - unique
