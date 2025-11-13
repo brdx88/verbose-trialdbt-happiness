@@ -32,3 +32,8 @@ sources:
         description: "Ecommerce raw orders data ingested."
       - name: ecom_products
         description: "Ecommerce raw products data ingested."
+
+      - name: kissatennana_transaksi_penjualan__level_product
+        description: "Data transaksi penjualan Kissaten Nana - level Produk"
+      - name: kissatennana_transaksi_penjualan__level_receiptno
+        description: "Data transaksi penjualan Kissaten Nana - level Nomor Receipt"
