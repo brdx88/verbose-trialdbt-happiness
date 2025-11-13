@@ -14,3 +14,5 @@ models:
                 to: ref('stg_customers')
 
   - name: mart_ecom_sales_summary
+
+  - name: mart_kissaten__sales__summary_day_hour
