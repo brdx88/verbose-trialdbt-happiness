@@ -37,3 +37,7 @@ sources:
         description: "Data transaksi penjualan Kissaten Nana - level Produk"
       - name: kissatennana_transaksi_penjualan__level_receiptno
         description: "Data transaksi penjualan Kissaten Nana - level Nomor Receipt"
+      - name: fbref_matches_all_shots
+      - name: fbref_player_demographics
+      - name: fbref_player_stats
+      - name: fbref_scores_fixtures
