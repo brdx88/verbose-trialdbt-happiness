@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: cove_raw
+    database: serious-music-469407-f1
+    schema: cove_raw
+    tables:
+      - name: properties
+      - name: rooms
+      - name: tenancies
