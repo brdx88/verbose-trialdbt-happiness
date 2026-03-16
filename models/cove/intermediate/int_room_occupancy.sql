@@ -1,32 +1,73 @@
-with tenancies as (
-    select * from {{ ref('stg_tenancies') }}
-    where is_valid = true  -- exclude cancelled
-),
+-- PURPOSE: 
+    -- expand each "valid tenancy" into a daily-grain-calendar showing when each room is 'occupied'.
 
-date_spine as (
-    select * from {{ ref('int_date_spine') }}
-),
+-- ASSUMPTIONS:
 
--- expand tenancies to daily grain
-daily_occupancy as (
-    select
+    -- ASSUMPTION 1: 
+        -- cancelled tenancies are excluded from occupancy calculation.
+        -- only status != 'CANCELLED' tenancies are considered valid.
+            -- EXAMPLE: 
+                -- t_015 (r_302, status='cancelled') is excluded
+                -- r_302 is treated as vacant for that period.
+
+    -- ASSUMPTION 2: 
+        -- checkout date is NOT counted as an occupied night.
+        -- a tenant checking out on 2025-06-30 frees the room on that day.
+            -- EXAMPLE: 
+                -- t_002 checks out 2025-06-30, so Jun 30 is NOT occupied by t_002.
+                -- t_003 checks in 2025-07-15, so the room is vacant Jul 1–14.
+
+    -- ASSUMPTION 3: 
+        -- overlapping tenancies on the same room are deduplicated via `SELECT DISTINCT` on `room_id` level.
+        -- counted as 1 occupied night, not 2; so occupied room nights will never exceed available room nights later.
+            -- EXAMPLE: 
+                -- t_010 (checkout 2025-07-01) and t_011 (checkin 2025-06-25) overlap
+                -- on r_202 for 6 days (Jun 25–30). these 6 days are counted once, not twice.
+
+-- partitioned by `month_start` to reducing query cost and improving performance along the way.
+{{ config(
+    materialized='table',
+    partition_by=
+    {
+        'field': 'month_start', 'data_type': 'date'
+    }
+) }}
+
+WITH TENANCIES AS 
+(
+    SELECT * FROM {{ ref('stg_tenancies') }}
+    WHERE is_valid = true       -- ASSUMPTION 1
+)
+
+, DATE_SPINE AS 
+(
+    SELECT * FROM {{ ref('int_date_spine') }}
+)
+
+, DAILY_OCCUPANCY AS 
+(
+    SELECT
         d.calendar_date,
         d.month_start,
         t.room_id,
         t.tenancy_id
-    from date_spine d
-    inner join tenancies t
-        on d.calendar_date >= t.check_in_date
-        and d.calendar_date < t.check_out_date  -- checkout date doesnt count
-),
+    FROM DATE_SPINE d
+    INNER JOIN TENANCIES t
+        ON d.calendar_date >= t.check_in_date
+        AND d.calendar_date < t.check_out_date          -- ASSUMPTION 2
+)
 
--- dedup: handle overlap tenancy (e.g. t_010 & t_011)
-deduped as (
-    select distinct
+, DEDUPED AS 
+(
+    SELECT DISTINCT                                 -- ASSUMPTION 3
         calendar_date,
         month_start,
         room_id
-    from daily_occupancy
+    FROM DAILY_OCCUPANCY
 )
 
-select * from deduped
+SELECT
+    calendar_date,
+    month_start,
+    room_id
+FROM DEDUPED

@@ -1,0 +1,40 @@
+version: 2
+
+models:
+  - name: int_date_spine
+    description: "Calendar table from 2025-01-01 to 2026-12-31 at daily grain."
+    columns:
+      - name: calendar_date
+        tests:
+          - unique
+          - not_null
+
+      - name: month_start
+        tests:
+          - not_null
+
+  - name: int_room_availability
+    description: "Daily grain table showing available rooms per property per day."
+    columns:
+      - name: calendar_date
+        tests:
+          - not_null
+
+      - name: room_id
+        tests:
+          - not_null
+
+      - name: property_id
+        tests:
+          - not_null
+
+  - name: int_room_occupancy
+    description: "Daily grain table showing occupied rooms per day, cancelled and overlapping tenancies excluded."
+    columns:
+      - name: calendar_date
+        tests:
+          - not_null
+
+      - name: room_id
+        tests:
+          - not_null

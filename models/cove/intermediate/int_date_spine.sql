@@ -1,18 +1,29 @@
-with date_spine as (
+-- PURPOSE?
+    -- generate a 'calendar table', one row per day from 2025-01-01 to 2026-12-31.
+
+-- WHY?
+    -- tenancy data only has rows when a booking EXISTS. 
+    -- if a room is vacant for an entire month, there would be no row for that month,
+    -- "making it impossible to calculate available_room_nights" or show 0% occupancy correctly.
+    -- the idea is "by joining to this date spine", every day is explicitly represented regardless
+    -- of whether a booking exists.
+
+-- EXAMPLE:
+    -- `r_301` has no tenancy in `Dec 2025`. without date spine, `Dec 2025` would be missing
+    -- from the final occupancy table. with date spine, it appears with 0 occupied nights.
+
+WITH DATE_SPINE AS 
+(
     {{ dbt_utils.date_spine(
         datepart="day",
-        start_date="cast('2025-01-01' as date)",
-        end_date="cast('2026-12-31' as date)"
+        start_date="CAST('2025-01-01' AS DATE)",
+        end_date="CAST('2026-12-31' AS DATE)"
     ) }}
-),
-
-renamed as (
-    select
-        cast(date_day as date)  as calendar_date,
-        extract(year from date_day)                         as year,
-        extract(month from date_day)                        as month,
-        date_trunc(cast(date_day as date), month)           as month_start
-    from date_spine
 )
 
-select * from renamed
+SELECT
+    CAST(date_day AS DATE) as calendar_date,
+    EXTRACT(YEAR FROM date_day) as year,
+    EXTRACT(MONTH FROM date_day) AS month,
+    DATE_TRUNC(CAST(date_day AS DATE), MONTH) AS month_start
+FROM DATE_SPINE
