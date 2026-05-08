@@ -35,8 +35,8 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   banking:  # or your project name from dbt_project.yml
     # Applies to all files under models/example/
-    src:                                # BRONZE - raw source references (only YAML, no SQL).
-      +schema: bronze
+    # src:                                # BRONZE - raw source references (only YAML, no SQL).
+    #   +schema: bronze
     stg:                                # SILVER - 1:1 cleaned tables, light transform if needed.
       +schema: silver
       +materialized: view
