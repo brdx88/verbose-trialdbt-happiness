@@ -5,9 +5,10 @@ models:
     description: "Cleaned and standardized customers data."
     tests:
       - dbt_utils.unique_combination_of_columns:
-          combination_of_columns:
-            - position_date
-            - customer_id
+          arguments: 
+            combination_of_columns:
+              - position_date
+              - customer_id
     columns:
       - name: position_date
         tests:
@@ -18,7 +19,8 @@ models:
       - name: gender
         data_tests:
           - accepted_values:
-              values: ['MALE', 'FEMALE']
+              arguments: 
+                values: ['MALE', 'FEMALE']
       - name: kyc_status
         tests:
           - not_null
@@ -28,9 +30,10 @@ models:
     
     tests:
       - dbt_utils.unique_combination_of_columns:
-          combination_of_columns:
-            - position_date
-            - account_id
+          arguments: 
+            combination_of_columns:
+              - position_date
+              - account_id
 
     columns:
       - name: position_date
@@ -43,28 +46,32 @@ models:
         tests:
           - not_null
           - relationships:
-              to: ref('sri_customers')
-              field: customer_id
+              arguments: 
+                to: ref('sri_customers')
+                field: customer_id
       - name: balance
         tests:
           - dbt_utils.accepted_range:
-              min_value: 0
+              arguments: 
+                min_value: 0
       - name: account_status
         tests:
           - accepted_values:
-              values:
-                - ACTIVE
-                - DORMANT
-                - CLOSED
+              arguments: 
+                values:
+                  - ACTIVE
+                  - DORMANT
+                  - CLOSED
 
   - name: sri_loans
     description: "Cleaned and standardized loans data."
     
     tests:
       - dbt_utils.unique_combination_of_columns:
-          combination_of_columns:
-            - position_date
-            - loan_id
+          arguments: 
+            combination_of_columns:
+              - position_date
+              - loan_id
 
     columns:
       - name: position_date
@@ -77,30 +84,36 @@ models:
         tests:
           - not_null
           - relationships:
-              to: ref('sri_customers')
-              field: customer_id
+              arguments: 
+                to: ref('sri_customers')
+                field: customer_id
       - name: loan_status
         tests:
           - accepted_values:
-              values:
-                - CLOSED
-                - CURRENT
-                - DELINQUENT
-                - RESTRUCTURED
+              arguments: 
+                values:
+                  - CLOSED
+                  - CURRENT
+                  - DELINQUENT
+                  - RESTRUCTURED
       - name: principal_amount
         tests:
           - dbt_utils.accepted_range:
-              min_value: 0
+              arguments: 
+                min_value: 0
       - name: outstanding_balance
         tests:
           - dbt_utils.accepted_range:
-              min_value: 0
+              arguments: 
+                min_value: 0
       - name: interest_rate
         tests:
           - dbt_utils.accepted_range:
-              min_value: 0
-              max_value: 100
+              arguments: 
+                min_value: 0
+                max_value: 100
       - name: tenor_months
         tests:
           - dbt_utils.accepted_range:
-              min_value: 1
+              arguments: 
+                min_value: 1

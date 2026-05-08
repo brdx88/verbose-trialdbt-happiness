@@ -4,9 +4,10 @@ models:
   - name: acl_customers
     tests:
       - dbt_utils.unique_combination_of_columns:
-          combination_of_columns:
-            - position_date
-            - customer_id
+          arguments: 
+            combination_of_columns:
+              - position_date
+              - customer_id
     columns:
       - name: position_date
         tests:
@@ -15,35 +16,41 @@ models:
         tests:
           - not_null
           - relationships:
-              to: ref('sri_customers')
-              field: customer_id
+              arguments: 
+                to: ref('sri_customers')
+                field: customer_id
       - name: age
         tests:
           - dbt_utils.accepted_range:
-              min_value: 0
-              max_value: 120
+              arguments: 
+                min_value: 0
+                max_value: 120
       - name: tenure_months
         tests:
           - dbt_utils.accepted_range:
-              min_value: 0
+              arguments: 
+                min_value: 0
       - name: is_new_customer
         tests:
           - accepted_values:
-              values: [0, 1]
-              quote: false
+              arguments: 
+                values: [0, 1]
+                quote: false
       - name: is_kyc_verified
         tests:
           - accepted_values:
-              values: [0, 1]
-              quote: false
+              arguments: 
+                values: [0, 1]
+                quote: false
 
   - name: acl_accounts_summary
     description: "level `accounts` has total accounts, total balance, avg balance, and flag has active account or not."
     tests:
       - dbt_utils.unique_combination_of_columns:
-          combination_of_columns:
-            - position_date
-            - customer_id
+          arguments: 
+            combination_of_columns:
+              - position_date
+              - customer_id
     columns:
       - name: position_date
         tests:
@@ -52,32 +59,38 @@ models:
         data_tests:
           - not_null
           - relationships:
-              to: ref('acl_customers')
-              field: customer_id
+              arguments: 
+                to: ref('acl_customers')
+                field: customer_id
       - name: total_accounts
         tests:
           - dbt_utils.accepted_range:
-              min_value: 0
+              arguments: 
+                min_value: 0
       - name: total_balance
         tests:
           - dbt_utils.accepted_range:
-              min_value: 0
+              arguments: 
+                min_value: 0
       - name: avg_balance
         tests:
           - dbt_utils.accepted_range:
-              min_value: 0
+              arguments: 
+                min_value: 0
       - name: has_active_account
         tests:
           - accepted_values:
-              values: [0, 1]
-              quote: false
+              arguments: 
+                values: [0, 1]
+                quote: false
 
   - name: acl_loans_summary
     tests:
       - dbt_utils.unique_combination_of_columns:
-          combination_of_columns:
-            - position_date
-            - loan_id
+          arguments: 
+            combination_of_columns:
+              - position_date
+              - loan_id
     columns:
       - name: position_date
         tests:
@@ -89,31 +102,38 @@ models:
         tests:
           - not_null
           - relationships:
-              to: ref('acl_customers')
-              field: customer_id
+              arguments: 
+                to: ref('acl_customers')
+                field: customer_id
       - name: principal_amount
         tests:
           - dbt_utils.accepted_range:
-              min_value: 0
+              arguments: 
+                min_value: 0
       - name: outstanding_balance
         tests:
           - dbt_utils.accepted_range:
-              min_value: 0
+              arguments: 
+                min_value: 0
       - name: interest_rate
         tests:
           - dbt_utils.accepted_range:
-              min_value: 0
-              max_value: 100
+              arguments: 
+                min_value: 0
+                max_value: 100
       - name: remaining_balance_ratio
         tests:
           - dbt_utils.accepted_range:
-              min_value: 0
+              arguments: 
+                min_value: 0
       - name: is_active_loan
         tests:
           - accepted_values:
-              values: [0, 1]
-              quote: false
+              arguments: 
+                values: [0, 1]
+                quote: false
       - name: loan_age_in_months
         tests:
           - dbt_utils.accepted_range:
-              min_value: 0
+              arguments: 
+                min_value: 0

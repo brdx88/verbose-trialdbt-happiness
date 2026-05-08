@@ -51,19 +51,19 @@ models:
           - unique
           - not_null
 
-  - name: ecom_customers
+  - name: stg_ecom_customers
     columns:
     - name: customer_id
       data_tests:
         - unique
         - not_null
-  - name: ecom_orders
+  - name: stg_ecom_orders
     columns:
     - name: id
       data_tests:
         - unique
         - not_null
-  - name: ecom_products
+  - name: stg_ecom_products
     columns:
     - name: product_id
       data_tests:

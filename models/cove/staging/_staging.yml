@@ -39,8 +39,9 @@ models:
         tests:
           - not_null
           - relationships:
-              to: ref('stg_properties')
-              field: property_id
+              arguments: 
+                to: ref('stg_properties')
+                field: property_id
 
       - name: is_active
         tests:
@@ -59,8 +60,9 @@ models:
         tests:
           - not_null
           - relationships:
-              to: ref('stg_rooms')
-              field: room_id
+              arguments: 
+                to: ref('stg_rooms')
+                field: room_id
 
       - name: check_in_date
         tests:
@@ -74,4 +76,5 @@ models:
         tests:
           - not_null
           - accepted_values:
-              values: ['ACTIVE', 'CANCELLED']
+              arguments: 
+                values: ['ACTIVE', 'CANCELLED']
