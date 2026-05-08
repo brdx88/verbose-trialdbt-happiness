@@ -1,0 +1,15 @@
+version: 2
+
+sources:
+  - name: demo_banking_stg                    # ' source' display name in dbt
+    database: serious-music-469407-f1       # BigQuery's project id
+    schema: demo_banking_stg                  # BigQuery's dataset name
+
+    tables:
+      - name: stg_customers
+        description: "Raw banking customers data ingested."
+      - name: stg_accounts
+        description: "Raw banking accounts data ingested."
+      - name: stg_loans
+        description: "Raw banking loans data ingested."
+        

@@ -69,6 +69,18 @@ models:
         +schema: cove_gold
         +materialized: table
 
+    # for demo purposes to BDE team 2026.
+    banking_demo:
+      sri:
+        +schema: demo_banking_sri
+        +materialized: incremental
+      acl:
+        +schema: demo_banking_acl
+        +materialized: incremental
+      dm_customer:
+        +schema: demo_banking_dm_customer
+        +materialized: incremental
+
 # on-run-end:
 # # execute after all builds and tests succeed.
 #   # `on-run-end` hooks execute after all builds and tests succeed.
