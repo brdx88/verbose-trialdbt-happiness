@@ -3,7 +3,7 @@ with daily_metrics as (
     select
         position_date,
         sum(total_account_balance) as total_account_balance
-    from {{ ref('golden_customer_datamart') }}
+    from {{ ref('mart_customer') }}
     where position_date in (
         current_date('Asia/Jakarta'),
         date_sub(current_date('Asia/Jakarta'), interval 1 day)

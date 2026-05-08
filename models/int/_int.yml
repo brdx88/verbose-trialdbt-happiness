@@ -31,15 +31,17 @@ models:
         tests:
           - not_null
           - dbt_utils.accepted_range:
-              min_value: 0
-              max_value: 200
+              arguments: 
+                min_value: 0
+                max_value: 200
       - name: branch_size_category
         tests:
           - accepted_values:
-              values:
-                - 'SMALL'
-                - 'MEDIUM'
-                - 'LARGE'
+              arguments: 
+                values:
+                  - 'SMALL'
+                  - 'MEDIUM'
+                  - 'LARGE'
   
   - name: int_customers
     columns:
