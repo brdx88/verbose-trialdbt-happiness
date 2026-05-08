@@ -70,6 +70,13 @@ models:
         +materialized: table
 
     # for demo purposes to BDE team 2026.
+        # 1. lineage
+        # 2. incremental overwrite
+        # 3. partition
+        # 4. tests
+        # 5. operational gate
+        # 6. failure simulation
+        # 7. downstream blocked
     banking_demo:
       sri:
         +schema: demo_banking_sri

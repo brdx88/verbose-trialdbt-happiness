@@ -9,6 +9,8 @@
 
 SELECT 
     CURRENT_DATE('Asia/Jakarta') AS position_date,
+    -- DATE_ADD(CURRENT_DATE('Asia/Jakarta'), INTERVAL 1 DAY) AS position_date,
+
     CAST(account_id AS INTEGER) AS account_id,
     CAST(customer_id AS INTEGER) AS customer_id,
     CAST(UPPER(account_type) AS STRING) AS account_type,

@@ -10,6 +10,8 @@
 
 SELECT
     CURRENT_DATE('Asia/Jakarta') AS position_date,
+    -- DATE_ADD(CURRENT_DATE('Asia/Jakarta'), INTERVAL 1 DAY) AS position_date,
+    
     CAST(loan_id AS INTEGER) AS loan_id,
     CAST(customer_id AS INTEGER) AS customer_id,
     CAST(UPPER(loan_type) AS STRING) AS loan_type,
