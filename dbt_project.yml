@@ -69,6 +69,25 @@ models:
         +schema: cove_gold
         +materialized: table
 
+    # for demo purposes to BDE team 2026.
+        # 1. lineage
+        # 2. incremental overwrite
+        # 3. partition
+        # 4. tests
+        # 5. operational gate
+        # 6. failure simulation
+        # 7. downstream blocked
+    banking_demo:
+      sri:
+        +schema: demo_banking_sri
+        +materialized: incremental
+      acl:
+        +schema: demo_banking_acl
+        +materialized: incremental
+      dm_customer:
+        +schema: demo_banking_dm_customer
+        +materialized: incremental
+
 # on-run-end:
 # # execute after all builds and tests succeed.
 #   # `on-run-end` hooks execute after all builds and tests succeed.
